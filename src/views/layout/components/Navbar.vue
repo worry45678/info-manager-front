@@ -1,6 +1,7 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
+    <breadcrumb></breadcrumb>
   <el-dropdown class="avatar-container">
       <div class="avatar-wrapper">
           <p>avatar</p>
@@ -22,6 +23,8 @@
 
 <script>
 import Hamburger from '../../../components/Hamburger.vue'
+import Breadcrumb from '../../../components/Breadcrumb.vue'
+
 export default {
   data() {
     return {
@@ -36,7 +39,8 @@ export default {
     }
   },
   components: {
-    Hamburger
+    Hamburger,
+    Breadcrumb
   },
   computed: {
     sidebar() {

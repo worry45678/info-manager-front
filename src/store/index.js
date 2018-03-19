@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     token: 'token',
-    name: '',
+    name: 'defalut-name',
     avatar: '',
     roles: [],
     sidebar: {
