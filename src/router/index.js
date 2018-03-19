@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import HelloWorld from '@/components/HelloWorld'
-import hello from '../components/Hello.vue'
 import Layout from '../views/layout/Layout.vue'
 
 Vue.use(Router)
@@ -16,26 +15,28 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'Layout',
-      component: Layout
-    },
-    {
-      path: '/hello',
       name: 'hello',
-      component: hello
+      component: Layout,
+      chideren: [
+        {
+          path: 'wel',
+          name: 'hello',
+          component: () => import('@/views/table/AssetTable.vue')
+        }
+      ]
     },
     {
       path: '/example',
       component: Layout,
       redirect: '/example/table',
       name: 'Example',
-      meta: { title: 'Example', icon: 'example' },
+      meta: { title: '资产管理', icon: 'example' },
       children: [
         {
           path: 'table',
           name: 'Table',
-          component: () => import('@/views/dashboard/index'),
-          meta: { title: 'Table', icon: 'table' }
+          component: () => import('@/views/table/AssetTable.vue'),
+          meta: { title: '资产表', icon: 'table' }
         },
         {
           path: 'tree',

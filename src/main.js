@@ -24,13 +24,13 @@ new Vue({
   el: '#app',
   data() {
     return {
-      axios // 测试用
     }
   },
   router,
   store,
   methods: {
-    request
+    request,
+    axios
   },
   components: { App },
   template: '<App/>',
