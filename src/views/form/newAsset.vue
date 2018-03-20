@@ -11,7 +11,7 @@
         <el-input v-model="form.user"></el-input>
       </el-form-item>
       <el-form-item label="资产类型">
-        <el-select v-model="form.asset_type" placeholder="请选择">
+        <el-select v-model="form.asset_type" placeholder="请选择" @change="handleSelectType">
             <el-option
             v-for="item in options.asset_type"
             :key="item.code"
@@ -19,7 +19,7 @@
             :value="item.id">
             </el-option>
         </el-select>
-        <el-input v-for="item in options.item" placeholder="请输入内容" v-model="input3" :key="item.id">
+        <el-input v-for="item in options.item" placeholder="请输入内容" v-model="form.item[item.item_name]" :key="item.id">
             <template slot="prepend">{{item.item_name}}</template>
         </el-input>
       </el-form-item>
@@ -95,7 +95,8 @@ export default {
         delivery: false,
         type: [],
         resource: '',
-        desc: ''
+        desc: '',
+        item: {}
       },
       options: {
         asset_type: [],
@@ -112,7 +113,6 @@ export default {
       paramsList: [
         'asset_type',
         'asset_state',
-        'item',
         'parameter',
         'manufactory',
         'supplier',
@@ -130,6 +130,12 @@ export default {
       this.$message({
         message: 'cancel!',
         type: 'warning'
+      })
+    },
+    handleSelectType(value) {
+      console.log(value)
+      getList('item', { 'asset_type_id': value }).then(response => {
+        this.options.item = response.data
       })
     },
     fetchData() {
