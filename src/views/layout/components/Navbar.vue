@@ -2,9 +2,13 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb></breadcrumb>
-  <el-dropdown class="avatar-container">
+    <div class="right-menu">
+    <el-badge :value="$store.getters.messageCount" class="right-menu-item">
+    <svg-icon :icon-class="'remind'"></svg-icon>
+    </el-badge>
+  <el-dropdown class="avatar-container right-menu-item">
       <div class="avatar-wrapper">
-          <p>avatar</p>
+          <svg-icon :icon-class="$store.getters.avatarIcon"></svg-icon>
           <i class="el-icon-caret-bottom"></i>
       </div>
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
@@ -18,6 +22,7 @@
           </el-dropdown-item>
       </el-dropdown-menu>
   </el-dropdown>
+  </div>
   </el-menu>
 </template>
 
@@ -68,27 +73,42 @@ export default {
     top: 16px;
     color: red;
   }
-  .avatar-container {
-    height: 50px;
-    display: inline-block;
-    position: absolute;
-    right: 35px;
-    .avatar-wrapper {
-      cursor: pointer;
-      margin-top: 5px;
-      position: relative;
-      .user-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
+  .right-menu {
+    float: right;
+    margin-right: 6%;
+    height: 100%;
+    &:focus{
+     outline: none;
+    }
+    .right-menu-item {
+      display: inline-block;
+      margin: 0 8px;
+      .svg-icon {
+        height: 30px;
+        width: 30px;
       }
-      .el-icon-caret-bottom {
-        position: absolute;
-        right: -20px;
-        top: 25px;
-        font-size: 12px;
+    }
+    .avatar-container {
+      height: 50px;
+      display: inline-block;
+      .avatar-wrapper {
+        cursor: pointer;
+        margin-top: 5px;
+        position: relative;
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+        }
+        .el-icon-caret-bottom {
+          position: absolute;
+          right: -20px;
+          top: 25px;
+          font-size: 12px;
+        }
       }
     }
   }
 }
+
 </style>

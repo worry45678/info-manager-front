@@ -1,5 +1,33 @@
 <template>
   <div class="app-container">
+    <div class="filter-container">
+      
+      <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" v-model="listQuery.asset_name">
+      </el-input>
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
+      <router-link to='/example/newasset'>
+        <el-button class="filter-item" type="primary" icon="el-icon-plus">Add New Asset</el-button>
+      </router-link>
+
+      <!--
+      <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.importance" :placeholder="$t('table.importance')">
+        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item">
+        </el-option>
+      </el-select>
+      <el-select clearable class="filter-item" style="width: 130px" v-model="listQuery.type" :placeholder="$t('table.type')">
+        <el-option v-for="item in  calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key">
+        </el-option>
+      </el-select>
+      <el-select @change='handleFilter' style="width: 140px" class="filter-item" v-model="listQuery.sort">
+        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key">
+        </el-option>
+      </el-select>
+      <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">{{$t('table.search')}}</el-button>
+      <el-button class="filter-item" style="margin-left: 10px;" @click="handleCreate" type="primary" icon="el-icon-edit">{{$t('table.add')}}</el-button>
+      <el-button class="filter-item" type="primary" :loading="downloadLoading" v-waves icon="el-icon-download" @click="handleDownload">{{$t('table.export')}}</el-button>
+      <el-checkbox class="filter-item" style='margin-left:15px;' @change='tableKey=tableKey+1' v-model="showReviewer">{{$t('table.reviewer')}}</el-checkbox>
+      -->
+    </div>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
     <el-table-column type="expand">
       <template slot-scope="props">
@@ -59,7 +87,17 @@
           <span>{{scope.row.trade_date}}</span>
         </template>
       </el-table-column>
+      <el-table-column label="操作" width="60">
+      <template slot-scope="scope">
+        <el-button type="text" size="medium">报修</el-button>
+      </template>
+    </el-table-column>
     </el-table>
+
+    <div class="pagination-container">
+      <el-pagination background @current-change="handleCurrentChange" :page-sizes="[12]" :current-page="listQuery.page" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -70,7 +108,15 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+      total: null,
+      listQuery: {
+        page: 1,
+        pricemin: null,
+        pricemax: null,
+        asset_name: '',
+        ordering: null
+      }
     }
   },
   filters: {
@@ -89,9 +135,22 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      const data = getList()
-      this.list = data.results
-      this.listLoading = false
+      // const data = getList()
+      // this.list = data.results
+      // this.listLoading = false
+      getList(this.listQuery).then(response => {
+        this.list = response.data.results
+        this.total = response.data.count
+        this.listLoading = false
+      })
+    },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.fetchData()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.page = val
+      this.fetchData()
     }
   }
 }

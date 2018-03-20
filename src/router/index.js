@@ -39,10 +39,10 @@ export default new Router({
           meta: { title: '资产表', icon: 'table' }
         },
         {
-          path: 'tree',
-          name: 'Tree',
-          component: () => import('@/views/dashboard/index'),
-          meta: { title: 'Tree', icon: 'tree' }
+          path: 'newasset',
+          name: 'newAsset',
+          component: () => import('@/views/form/newAsset.vue'),
+          meta: { title: '资产录入', icon: 'new' }
         }
       ]
     },

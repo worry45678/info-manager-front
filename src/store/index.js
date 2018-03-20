@@ -7,7 +7,9 @@ const store = new Vuex.Store({
   state: {
     token: 'token',
     name: 'defalut-name',
+    messageCount: 6,
     avatar: '',
+    avatarIcon: 'admin',
     roles: [],
     sidebar: {
       opened: true
@@ -18,7 +20,9 @@ const store = new Vuex.Store({
     name: state => state.name,
     avator: state => state.avatar,
     roles: state => state.avatar,
-    sidebar: state => state.sidebar
+    sidebar: state => state.sidebar,
+    avatarIcon: state => state.avatarIcon,
+    messageCount: state => state.messageCount
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {

@@ -10,3 +10,8 @@
     1. 增加组件Breadcrumb,Hamburger,ScrollBar,SvgIcon,页面布局完成
     2. 封装axios到src/utils/request.js
     3. 资产表显示
+
+* 2018.3.20
+    1. 资产总表，查询过滤，分页器
+    2. 资产录入页面
+    3. request请求成功

@@ -27,7 +27,7 @@
   src\views\layout 页面布局
 
 ### Icon
-  1. 增加包： "svg-sprite-loader": "^3.7.1"
+  1. 增加包： "svg-sprite-loader": "^3.7.1" 解析svg格式的图标文件
   2. webpack.base.conf.js 增加配置 `
         {
         test: /\.svg$/,
