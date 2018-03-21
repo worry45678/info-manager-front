@@ -10,8 +10,20 @@
       <el-form-item label="user">
         <el-input v-model="form.user"></el-input>
       </el-form-item>
+      <el-form-item label="trade_date">
+        <el-input v-model="form.trade_date"></el-input>
+      </el-form-item>
+      <el-form-item label="price">
+        <el-input v-model="form.price"></el-input>
+      </el-form-item>
+      <el-form-item label="repair_time">
+        <el-input v-model="form.repair_time"></el-input>
+      </el-form-item>
+      <el-form-item label="memo">
+        <el-input v-model="form.memo"></el-input>
+      </el-form-item>
       <el-form-item label="资产类型">
-        <el-select v-model="form.asset_type" placeholder="请选择" @change="handleSelectType">
+        <el-select v-model="form.fk_asset_type" placeholder="请选择" @change="handleSelectType">
             <el-option
             v-for="item in options.asset_type"
             :key="item.code"
@@ -19,12 +31,12 @@
             :value="item.id">
             </el-option>
         </el-select>
-        <el-input v-for="item in options.item" placeholder="请输入内容" v-model="form.item[item.item_name]" :key="item.id">
+        <el-input v-for="item in options.item" placeholder="请输入内容" v-model="form.parameters[item.id]" :key="item.id">
             <template slot="prepend">{{item.item_name}}</template>
         </el-input>
       </el-form-item>
       <el-form-item  label="资产状态">
-        <el-select v-model="form.asset_state" placeholder="请选择">
+        <el-select v-model="form.fk_asset_state" placeholder="请选择">
             <el-option
             v-for="item in options.asset_state"
             :key="item.memo"
@@ -34,7 +46,7 @@
         </el-select>
       </el-form-item>
       <el-form-item  label="生产厂家">
-        <el-select v-model="form.manufactory" placeholder="请选择">
+        <el-select v-model="form.fk_manufactory" placeholder="请选择">
             <el-option
             v-for="item in options.manufactory"
             :key="item.address"
@@ -44,7 +56,7 @@
         </el-select>
       </el-form-item>
       <el-form-item  label="supplier">
-        <el-select v-model="form.supplier" placeholder="请选择">
+        <el-select v-model="form.fk_supplier" placeholder="请选择">
             <el-option
             v-for="item in options.supplier"
             :key="item.id"
@@ -53,8 +65,18 @@
             </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item  label="department">
+        <el-select v-model="form.fk_department" placeholder="请选择">
+            <el-option
+            v-for="item in options.department"
+            :key="item.id"
+            :label="item.department_name"
+            :value="item.id">
+            </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item  label="BusinessUnit">
-        <el-select v-model="form.businessUnit" placeholder="请选择">
+        <el-select v-model="form.fk_business_unit" placeholder="请选择">
             <el-option
             v-for="item in options.businessUnit"
             :key="item.id"
@@ -64,7 +86,7 @@
         </el-select>
       </el-form-item>
       <el-form-item  label="IDC">
-        <el-select v-model="form.idc" placeholder="请选择">
+        <el-select v-model="form.fk_idc" placeholder="请选择">
             <el-option
             v-for="item in options.idc"
             :key="item.id"
@@ -82,21 +104,25 @@
 </template>
 
 <script>
-import { getList } from '@/api/form'
+import { getList, create } from '@/api/form'
 
 export default {
   data() {
     return {
       form: {
+        fk_admin: '2', // 测试用
         asset_name: '',
         sn: '',
         user: '',
+        trade_date: '',
+        price: '',
+        repair_time: '',
+        memo: '',
         asset_type: '',
-        delivery: false,
-        type: [],
         resource: '',
-        desc: '',
-        item: {}
+        parameters: {},
+        tags: [1
+        ]
       },
       options: {
         asset_type: [],
@@ -118,13 +144,18 @@ export default {
         'supplier',
         'businessUnit',
         'idc',
-        'tag'
+        'tag',
+        'admin',
+        'department'
       ]
     }
   },
   methods: {
     onSubmit() {
       this.$message('submit!')
+      create('assetcreat', this.form).then(response => {
+        console.log(response)
+      })
     },
     onCancel() {
       this.$message({
