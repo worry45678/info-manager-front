@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <asset-dialog></asset-dialog>
     <img src="../assets/logo.png">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
@@ -85,12 +86,16 @@
 </template>
 
 <script>
+import assetDialog from '@/views/dialog/asset.vue'
 export default {
   name: 'HelloWorld',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
+    assetDialog
   }
 }
 </script>

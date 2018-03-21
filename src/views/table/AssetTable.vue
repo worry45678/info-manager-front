@@ -1,5 +1,15 @@
 <template>
   <div class="app-container">
+    <el-container>
+<!-- Form -->
+<el-dialog title="资产详情" :visible.sync="dialogFormVisible">
+    <new-asset refs="assetForm"></new-asset>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+  </div>
+</el-dialog>
+</el-container>
     <div class="filter-container">
       
       <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" v-model="listQuery.asset_name">
@@ -8,7 +18,8 @@
       <router-link to='/example/newasset'>
         <el-button class="filter-item" type="primary" icon="el-icon-plus">Add New Asset</el-button>
       </router-link>
-
+      <el-button type="primary" icon="el-icon-plus" class="filter-item" @click="dialogFormVisible = true">快速添加</el-button>
+      
       <!--
       <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.importance" :placeholder="$t('table.importance')">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item">
@@ -103,13 +114,14 @@
 
 <script>
 import { getList } from '@/api/table'
-
+import newAsset from '@/views/form/newAsset.vue'
 export default {
   data() {
     return {
       list: null,
       listLoading: true,
       total: null,
+      dialogFormVisible: false,
       listQuery: {
         page: 1,
         pricemin: null,
@@ -131,6 +143,9 @@ export default {
   },
   created() {
     this.fetchData()
+  },
+  components: {
+    newAsset
   },
   methods: {
     fetchData() {

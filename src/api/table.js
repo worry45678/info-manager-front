@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export function getList(params) {
   return axios({
-    url: 'http://192.168.131.86:8000/api/asset/',
+    url: process.env.BASE_API + 'asset' + '/',
     method: 'get',
     params
   })
