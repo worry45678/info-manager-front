@@ -57,3 +57,7 @@
 ### Login功能
 * src/views/login 登录界面，前端验证用户名和密码是否符合格式，通过后，通过store.dispatch出发Login事件，向后端提交，确认成功进入'/'页面,同时保存TOKEN，否则返回error submit
   * src/store/modules/user.js Login事件，调用src/api/login.js 中的login方法
+
+### vue.js相关
+1. v-bing .sync用法
+  需要显式出发this.$emit('update:visible', false)

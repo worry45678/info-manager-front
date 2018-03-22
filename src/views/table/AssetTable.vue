@@ -1,25 +1,16 @@
 <template>
   <div class="app-container">
-    <el-container>
-<!-- Form -->
-<el-dialog title="资产详情" :visible.sync="dialogFormVisible">
-    <new-asset refs="assetForm"></new-asset>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-  </div>
-</el-dialog>
-</el-container>
+      <asset-dialog :visible.sync="dialogFormVisible"></asset-dialog>
     <div class="filter-container">
-      
+
       <el-input @keyup.enter.native="handleFilter" style="width: 200px;" class="filter-item" v-model="listQuery.asset_name">
       </el-input>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">Search</el-button>
       <router-link to='/example/newasset'>
         <el-button class="filter-item" type="primary" icon="el-icon-plus">Add New Asset</el-button>
       </router-link>
-      <el-button type="primary" icon="el-icon-plus" class="filter-item" @click="dialogFormVisible = true">快速添加</el-button>
-      
+      <el-button type="primary" icon="el-icon-plus" class="filter-item" @click="dialogFormVisible=true">快速添加</el-button>
+
       <!--
       <el-select clearable style="width: 90px" class="filter-item" v-model="listQuery.importance" :placeholder="$t('table.importance')">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item">
@@ -66,7 +57,7 @@
           </el-form-item>
         </el-form>
       </template>
-    </el-table-column> 
+    </el-table-column>
       <el-table-column align="center" label='SN' width="95">
         <template slot-scope="scope">
           {{scope.row.sn}}
@@ -114,7 +105,7 @@
 
 <script>
 import { getList } from '@/api/table'
-import newAsset from '@/views/form/newAsset.vue'
+import assetDialog from '@/views/dialog/asset.vue'
 export default {
   data() {
     return {
@@ -145,7 +136,7 @@ export default {
     this.fetchData()
   },
   components: {
-    newAsset
+    assetDialog
   },
   methods: {
     fetchData() {
