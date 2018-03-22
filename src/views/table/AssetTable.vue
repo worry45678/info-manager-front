@@ -65,7 +65,7 @@
       </el-table-column>
       <el-table-column label="Title">
         <template slot-scope="scope">
-          {{scope.row.asset_name}}
+          <el-button type="text" @click="showInfo(scope.row.id)">{{scope.row.asset_name}}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="Author" width="110" align="center">
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import { getList, getAsset } from '@/api/table'
 import assetDialog from '@/views/dialog/asset.vue'
 export default {
   data() {
@@ -148,6 +148,11 @@ export default {
         this.list = response.data.results
         this.total = response.data.count
         this.listLoading = false
+      })
+    },
+    showInfo(id) {
+      getAsset(id).then(response => {
+        alert(response.data)
       })
     },
     handleFilter() {

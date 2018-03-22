@@ -8,3 +8,12 @@ export function getList(params) {
     params
   })
 }
+
+export function getAsset(field, params) {
+  return axios({
+    url: process.env.BASE_API + 'asset/' + field + '/',
+    method: 'get',
+    params
+  })
+}
+

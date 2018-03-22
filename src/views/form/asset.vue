@@ -4,9 +4,6 @@
       <el-form-item label="asset_name">
         <el-input v-model="form.asset_name"></el-input>
       </el-form-item>
-      <el-form-item label="sn">
-        <el-input v-model="form.sn"></el-input>
-      </el-form-item>
       <el-form-item label="user">
         <el-input v-model="form.user"></el-input>
       </el-form-item>
@@ -118,7 +115,6 @@ export default {
       form: {
         fk_admin: '',
         asset_name: '',
-        sn: '',
         user: '',
         trade_date: '',
         price: '',

@@ -18,6 +18,11 @@ export default new Router({
           path: 'hello',
           name: 'hello',
           component: () => import('@/components/HelloWorld')
+        },
+        {
+          path: 'test',
+          name: 'test',
+          component: () => import('@/views/dialog/detail')
         }
       ]
     },
